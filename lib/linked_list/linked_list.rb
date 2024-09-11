@@ -105,15 +105,14 @@ class LinkedList
   end
 
   def remove_at(index)
-    previous_node = @head
     each_with_index do |node, idx|
-      if index == idx
-        old_node = node
-        previous_node.next = old_node.next unless idx.zero?
-        @head = @head.next if idx.zero?
-        return old_node
-      end
-      previous_node = node
+      next unless index == idx
+
+      old_node = node
+      self[idx - 1].next = old_node.next unless idx.zero?
+      @head = @head.next if idx.zero?
+      @tail = @head if @head.nil?
+      return old_node
     end
   end
 
