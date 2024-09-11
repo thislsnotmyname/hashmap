@@ -1,5 +1,4 @@
 require_relative 'lib/hashmap'
-require 'awesome_print'
 
 hashmap = HashMap.new
 
