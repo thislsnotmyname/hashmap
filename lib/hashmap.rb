@@ -47,7 +47,26 @@ class HashMap
     # if it doesn't
     else
       @buckets[index].append(key_value_node)
+      @buckets[index][0].value
     end
+  end
+
+  def get(key)
+    index = create_index(key)
+
+    bucket = @buckets[index]
+    index_of_key = bucket&.find(HashNode.new(hash(key), key, ''))
+    return nil if bucket.nil? || index_of_key.nil?
+
+    bucket[index_of_key].value
+  end
+
+  def has?(key)
+    @buckets.each do |bucket|
+      true_yet = bucket&.contains?(HashNode.new(hash(key), key, '')) || false
+      return true if true_yet
+    end
+    false
   end
 
   private
@@ -55,6 +74,8 @@ class HashMap
   def create_index(key)
     index = hash(key) % @capacity
     raise IndexError if index.negative? || index >= @buckets.length
+
+    index
   end
 
   attr_writer :capacity, :buckets

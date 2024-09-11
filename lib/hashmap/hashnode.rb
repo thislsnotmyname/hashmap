@@ -12,13 +12,12 @@ class HashNode
   end
 
   def ==(other)
-    p [@hash_value, other.hash_value]
     @hash_value == other.hash_value &&
       @key == other.key
   end
 
   def to_s
-    [@hash, @key, @value]
+    [@hash_value, @key, @value]
   end
 
   private
